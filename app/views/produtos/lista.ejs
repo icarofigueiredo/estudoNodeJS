@@ -1,0 +1,30 @@
+<html>
+    <body>
+        <table border="1">
+            <tr>
+                <td>ID</td>
+                <td>NOME</td>
+            </tr>
+            <tr>
+                <% for(var i=0;i<lista.length;i++) { %>
+                    <tr>
+                        <td><%=lista[i].id%></td>
+                        <td><%=lista[i].titulo%></td>
+                        <td><%=lista[i].descricao%></td>
+                        <td><%=lista[i].preco%></td>
+                    </tr>
+                <% } %>
+            </tr>
+        </table>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script>
+        var socket = io();
+        //var socket = new io.Socket('localhost',{'port':3000});
+        socket.connect();
+        console.log(socket);
+        socket.on('novaPromocao',function(data){
+            alert("Livro em promocao "+data.livro.id);
+        });
+    </script>    
+</html>

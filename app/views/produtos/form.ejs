@@ -1,0 +1,39 @@
+<html>
+    <body>
+        <div class="errors">
+            <%if(errosValidacao) { %>
+            <ul>
+                <% for(var i=0; i<errosValidacao.length; i++) {%>
+                <li><%=errosValidacao[i].param%> - <%=errosValidacao[i].msg%></li>
+                <% } %>
+            </ul>
+            <%}%>
+        </div>
+        <form action="/produtos" method="post">
+            <div>
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" name="titulo" value="<%produto.titulo%>" placeholder="Informe o titulo do Livro"/>
+            </div>
+            <div>
+                <label for="preco">Preço</label>
+                <input type="text" id="preco" name="preco" value="<%produto.preco%>" placeholder="120.05"/>
+            </div>
+            <div>
+                <label for="descricao">Descrição</label>
+                <textarea cols="20" rows="10" id="descricao" name="descricao" value="<%produto.descricao%>" placeholder="Fale sobre o livro"></textarea>
+            </div>
+
+            <input type="submit" value="Gravar"/>
+        </form>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script>
+        var socket = io();
+        //var socket = new io.Socket('localhost',{'port':3000});
+        socket.connect();
+        console.log(socket);
+        socket.on('novaPromocao',function(data){
+            alert("Livro em promocao "+data.livro.id);
+        });
+    </script>    
+</html>
