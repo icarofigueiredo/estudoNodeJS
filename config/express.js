@@ -1,5 +1,6 @@
 var express = require('express');
 var load = require('express-load');
+var consign = require('consign');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 
@@ -15,7 +16,7 @@ module.exports = function() {
     app.use(expressValidator());
 
 
-    load('routes', {cwd: 'app', verbose: true})
+    consign('routes', {cwd: process.cwd()+'app', verbose: true})
         .then('infra')
         .into(app);
 
@@ -27,6 +28,7 @@ module.exports = function() {
 
     app.use(function(error, req,res,next){
         if(process.env.NODE_ENV == 'production') {
+            console.log(error);
             res.status(500).render('error/404');
             return;
         }
