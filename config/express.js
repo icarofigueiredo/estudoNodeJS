@@ -16,7 +16,7 @@ module.exports = function() {
     app.use(expressValidator());
 
 
-    consign('routes', {cwd: process.cwd()+'app', verbose: true})
+    consign({cwd: process.cwd()+'app', verbose: true})
         .then('infra')
         .into(app);
 
